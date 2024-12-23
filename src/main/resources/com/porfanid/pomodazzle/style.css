@@ -1,0 +1,118 @@
+/* Import other CSS files */
+@import url('theme.css');
+@import url('buttons.css');
+
+/* Main Title Label */
+.title-label {
+    -fx-font-size: 36px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0.5, 1, 1);
+}
+
+/* Timer Label */
+.timer-label {
+    -fx-font-size: 80px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16a085; /* Fresh modern green */
+}
+
+/* Timer Label States */
+#timerLabel.working {
+    -fx-text-fill: #e67e22; /* Vibrant orange for working */
+}
+
+#timerLabel.on-break {
+    -fx-text-fill: #27ae60; /* Calm green for breaks */
+}
+
+/* Status Label */
+.status-label {
+    -fx-font-size: 20px;
+    -fx-font-style: italic;
+    -fx-text-fill: #7f8c8d; /* Neutral gray */
+}
+
+.status-label.working {
+    -fx-text-fill: #e67e22; /* Vibrant orange */
+}
+
+.status-label.on-break {
+    -fx-text-fill: #27ae60; /* Calm green */
+}
+
+.status-label.paused,
+.status-label.stopped {
+    -fx-text-fill: #95a5a6; /* Muted gray */
+}
+
+/* Start Button */
+.start-button {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-color: #2980b9; /* Deep Blue */
+    -fx-background-radius: 8px;
+    -fx-padding: 14 28;
+    -fx-cursor: hand;
+    -fx-border: none;
+    -fx-transition: all 0.3s ease;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 2, 2);
+}
+
+.start-button:hover {
+    -fx-background-color: #3498db; /* Lighter Blue */
+}
+
+.start-button:pressed {
+    -fx-background-color: #1f5f8b; /* Darker Blue */
+}
+
+/* Reset Button */
+.reset-button {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-color: #e74c3c;
+    -fx-background-radius: 8px;
+    -fx-padding: 14 28;
+    -fx-cursor: hand;
+    -fx-border: none;
+    -fx-transition: all 0.3s ease;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 2, 2);
+}
+
+.reset-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+.reset-button:pressed {
+    -fx-background-color: #a73226;
+}
+
+/* Footer Label */
+.footer-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #7f8c8d;
+    -fx-font-style: italic;
+    -fx-padding: 10;
+}
+
+/* Dividers (Lines) */
+.line {
+    -fx-stroke: #dcdcdc;
+    -fx-stroke-width: 1.5px;
+}
+
+
+.top-right-hbox {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-hgrow: ALWAYS;
+    -fx-padding: 10;
+    -fx-translate-x: -50;
+}
+
+.settings-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-translate-x: -10;
+}

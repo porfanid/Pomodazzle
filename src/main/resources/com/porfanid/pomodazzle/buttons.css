@@ -1,0 +1,52 @@
+/* Back Button */
+.back-button {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-border-radius: 30px; /* Elliptical shape */
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-background-radius: 30px;
+}
+
+/* Graphic inside the Back Button */
+.back-button .graphic {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 2, 0, 0, 2);
+    -fx-opacity: 1;
+}
+
+/* Hover Effect */
+.back-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.15); /* Darker hover effect */
+    -fx-border-radius: 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 0, 0);
+}
+
+.back-button:hover .graphic {
+    -fx-opacity: 0.8; /* Slight opacity on hover */
+}
+
+/* Save Button */
+.action-button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-padding: 12px 20px;
+    -fx-font-size: 17px;
+    -fx-border-radius: 25px; /* Rounded corners */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 5, 0, 0, 5);
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+}
+
+
+.action-button:hover {
+    -fx-background-color: #005fa1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 0, 5);
+}
+
+.action-button:pressed {
+    -fx-background-color: #00457c;
+}
+

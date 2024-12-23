@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Pomodazzle">
+    <output-path>$PROJECT_DIR$/out/artifacts/Pomodazzle</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="com.porfanid.pomodazzle.Pomodazzle" />
+        <option name="description" value="" />
+        <option name="height" value="850" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="deb" />
+        <option name="title" value="Pomodazzle" />
+        <option name="vendor" value="Pavlos Orfanidis" />
+        <option name="version" value="test" />
+        <option name="width" value="400" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Pomodazzle.jar">
+        <element id="module-output" name="Pomodazzle" />
+      </element>
+    </root>
+  </artifact>
+</component>

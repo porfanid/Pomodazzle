@@ -1,0 +1,97 @@
+/* General Background for the Page */
+body {
+    -fx-background-color: #eef4f9;
+}
+
+/* Main Settings VBox */
+.main-vbox {
+    -fx-padding: 20;
+    -fx-background-color: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+    -fx-spacing: 30;
+    -fx-alignment: center;
+}
+
+/* Card Container */
+.card-container {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 20px;
+    -fx-padding: 25px;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 20, 0, 0, 10);
+    -fx-min-width: 320px;
+    -fx-max-width: 420px;
+    -fx-spacing: 25px;
+}
+
+/* Title for Card */
+.card-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10px 0;
+    -fx-alignment: center;
+}
+
+/* Material Design Input Fields */
+.material-text-field {
+    -fx-font-size: 16px;
+    -fx-pref-width: 240px;
+    -fx-padding: 12px;
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 3);
+}
+
+.material-text-field:focused {
+    -fx-border-color: #0078d7;
+    -fx-effect: dropshadow(gaussian, #0078d7, 3, 0, 0, 3);
+}
+
+/* Floating Label Effect for Inputs */
+.material-text-field:focused {
+    -fx-background-color: #f5faff;
+    -fx-border-color: #0078d7;
+}
+
+/* Modern Background Color for Page */
+body, .background {
+    -fx-background-color: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+}
+
+/* General styling for the alert dialog */
+.alert {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+}
+
+/* Styling the buttons inside the alert dialog */
+.dialog-pane .button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #388E3C;
+}
+
+/* Button hover effect */
+.dialog-pane .button:hover {
+    -fx-background-color: #45a049;
+    -fx-border-color: #2e7d32;
+}
+
+/* Button pressed effect */
+.dialog-pane .button:pressed {
+    -fx-background-color: #388E3C;
+    -fx-border-color: #1b5e20;
+}
+
+/* Alert dialog content styling */
+.dialog-pane .content {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
