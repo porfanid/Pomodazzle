@@ -28,6 +28,18 @@ jobs:
           sudo apt-get install -y openjfx
           mvn clean package
 
+      # Install Xvfb to create a virtual display
+      - name: Install Xvfb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
+      # Start Xvfb (creating a virtual display)
+      - name: Start Xvfb
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1024x768x24 &
+
       # Step 4: Create custom runtime image using jlink
       - name: Create custom runtime image with jlink
         run: |
