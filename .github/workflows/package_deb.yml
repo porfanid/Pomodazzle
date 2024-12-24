@@ -1,7 +1,7 @@
 name: Build and Package JavaFX Application
 
 on:
-  pull_request:
+  push:
     branches:
       - master
 
