@@ -37,7 +37,7 @@ jobs:
 
           # Create a custom runtime image using jlink
           jlink --module-path $JAVA_FX_PATH \
-                --add-modules javafx.controls,javafx.fxml,java.base,java.web \
+                --add-modules javafx.controls,javafx.fxml,java.base \
                 --output ./custom-jre
 
       # Step 4: Use jpackage to create a .deb package
