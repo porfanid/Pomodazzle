@@ -57,7 +57,7 @@ jobs:
             --win-dir-chooser `
             --win-menu `
             --win-shortcut `
-            --win-icon ".\\openjfx\\openjfx-23.0.1\\bin\\your-icon.ico"  # Optional: Provide your icon path
+#            --win-icon ".\\openjfx\\openjfx-23.0.1\\bin\\your-icon.ico"  # Optional: Provide your icon path
 
       # Step 5: Upload the MSI file as an artifact or release
       - name: Upload MSI to GitHub release
