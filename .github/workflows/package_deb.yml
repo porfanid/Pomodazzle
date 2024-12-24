@@ -48,7 +48,7 @@ jobs:
             --name Pomodazzle \
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar \
             --main-class com.porfanid.pomodazzle.Pomodazzle \
-            --module-path ./custom-jre/lib:$HOME/javafx-sdk/javafx-sdk-21/lib \
+            --module-path /usr/share/openjfx/lib \
             --add-modules javafx.controls,javafx.fxml,java.base \
             --runtime-image ./custom-jre \
             --type deb \
