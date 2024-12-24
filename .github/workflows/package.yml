@@ -52,4 +52,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pomodazzle.deb
-          path: ./package/Pomodazzle.deb
+          path: ./package/Pomodazzle/*.deb
