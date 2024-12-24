@@ -36,18 +36,22 @@ jobs:
       # Step 4: Use jpackage to create MSI installer
       - name: Create MSI installer using jpackage
         run: |
-          $env:PATH="$env:PATH;$env:ProgramFiles\Java\openjfx-21\bin"
-          jpackage --input target \
-            --name Pomodazzle \
-            --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar \
-            --main-class com.porfanid.pomodazzle.Pomodazzle \
-            --module-path $env:ProgramFiles\Java\openjfx-21\lib \
-            --add-modules javafx.controls,javafx.fxml,javafx.web \
-            --type msi \
-            --dest ./package/Pomodazzle \
-            --win-dir-chooser \
-            --win-menu \
+          # Correctly set the PATH environment variable with the correct JavaFX bin path
+          $env:PATH="$env:PATH;$env:ProgramFiles\\Java\\openjfx-21\\bin"
+
+          # Use jpackage to create the installer
+          jpackage --input target `
+            --name Pomodazzle `
+            --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
+            --main-class com.porfanid.pomodazzle.Pomodazzle `
+            --module-path $env:ProgramFiles\\Java\\openjfx-21\\lib `
+            --add-modules javafx.controls,javafx.fxml,javafx.web `
+            --type msi `
+            --dest ./package/Pomodazzle `
+            --win-dir-chooser `
+            --win-menu `
             --win-shortcut
+      
 
       # Step 5: Upload the MSI file as an artifact or release
       - name: Upload MSI to GitHub release
