@@ -1,0 +1,17 @@
+./mvnw clean
+./mvnw package
+rm -rf package
+jpackage \
+    --input target \
+    --name Pomodazzle \
+    --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar \
+    --main-class com.porfanid.pomodazzle.Pomodazzle \
+    --module-path /usr/share/openjfx/lib \
+    --add-modules javafx.controls,javafx.fxml,javafx.media \
+    --type deb \
+    --dest ./package/Pomodazzle \
+    --icon icons/pomodazzle-icon.png \
+    --linux-shortcut \
+    --linux-menu-group "Utility"
+
+./mvnw clean
