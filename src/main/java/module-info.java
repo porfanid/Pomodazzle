@@ -3,6 +3,8 @@ module com.porfanid.pomodazzle {
     requires javafx.fxml;
     requires javafx.web;
 
+    requires javafx.swing;
+
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
@@ -15,6 +17,7 @@ module com.porfanid.pomodazzle {
 
     opens com.porfanid.pomodazzle to javafx.fxml;
     exports com.porfanid.pomodazzle;
-    exports com.porfanid.pomodazzle.pomodoroHandler;
     opens com.porfanid.pomodazzle.pomodoroHandler to javafx.fxml;
+    exports com.porfanid.pomodazzle.pomodoroHandler;
+
 }
