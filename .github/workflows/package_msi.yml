@@ -18,7 +18,7 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          distribution: 'adoptopenjdk'
+          distribution: 'microsoft'
           java-version: '21'
 
       # Step 3: Install dependencies (e.g., jpackage, and other required tools)
