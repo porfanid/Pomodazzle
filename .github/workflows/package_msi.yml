@@ -68,6 +68,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pomodazzle-package
-          path: ./package/Pomodazzle_*.msi
+          path: ./package/Pomodazzle*.msi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
