@@ -50,10 +50,8 @@ jobs:
       # Step 5: Upload the package as an artifact
       - name: Find and Upload .deb File
         run: |
-          cd package
-          ls -la
           # Find the .deb file regardless of version
-          FILE=$(find package/Pomodazzle -name "*.deb" -print -quit)
+          FILE=$(find package -name "*.deb" -print -quit)
           echo "Found file: $FILE"
           echo "DEB_FILE=$FILE" >> $GITHUB_ENV
 
