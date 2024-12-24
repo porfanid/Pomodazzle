@@ -45,7 +45,7 @@ jobs:
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
             --main-class com.porfanid.pomodazzle.Pomodazzle `
             --module-path $env:ProgramFiles\\Java\\openjfx-21\\lib `
-            --add-modules javafx.controls,javafx.fxml,javafx.web `
+            --add-modules javafx.controls,javafx.fxml `
             --type msi `
             --dest ./package/Pomodazzle `
             --win-dir-chooser `
