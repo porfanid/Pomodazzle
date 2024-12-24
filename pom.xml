@@ -20,7 +20,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
-        <javafx.version>22.0.1</javafx.version> <!-- Define a single version for JavaFX -->
+        <javafx.version>22.0.1</javafx.version>
     </properties>
 
     <dependencies>
@@ -129,17 +129,28 @@
 
     <build>
         <plugins>
+
+
+
+
             <!-- JavaFX Maven Plugin (for running the app) -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
-                <configuration>
-                    <mainClass>com.porfanid.pomodazzle.Pomodazzle</mainClass> <!-- Correct mainClass path -->
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <configuration>
+                            <mainClass>com.porfanid.pomodazzle.Pomodazzle</mainClass>
+                            <addModules>javafx.controls,javafx.fxml,javafx.web,javafx.swing,javafx.media</addModules>
+                        </configuration>
+                        <goals>
+                            <goal>jlink</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-
-
 
 
             <!-- Maven Compiler Plugin -->
@@ -157,7 +168,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.7.1</version> <!-- Ensure you're using a recent version -->
+                <version>3.7.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>

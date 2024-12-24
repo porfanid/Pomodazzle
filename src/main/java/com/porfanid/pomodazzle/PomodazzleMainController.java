@@ -1,6 +1,7 @@
 package com.porfanid.pomodazzle;
 
 import com.porfanid.pomodazzle.pomodoroHandler.*;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -34,6 +37,8 @@ public class PomodazzleMainController implements Closeable {
     private Button donateButton;
     @FXML
     private Button settingsButton;
+
+    private Application app;
 
     private PomodoroDefaultValues defaultValues;
 
@@ -71,6 +76,10 @@ public class PomodazzleMainController implements Closeable {
         updateStatusLabel(TimerState.STOPPED);
     }
 
+    public void setApp(Application app) {
+        this.app = app;
+    }
+
     @FXML
     private void onStartButtonClick() {
         pomodoroTimer.changeState();
@@ -78,27 +87,11 @@ public class PomodazzleMainController implements Closeable {
 
     @FXML
     private void onDonateButtonClick() {
-        try {
-            // Create a new Stage for the WebView
-            Stage stage = new Stage();
-            WebView webView = new WebView();
-            WebEngine webEngine = webView.getEngine();
-
-            // Load the URL in the WebView
-            webEngine.load("https://ko-fi.com/porfanid");
-
-            // Set up the scene and show the Stage
-            StackPane root = new StackPane();
-            root.getChildren().add(webView);
-            Scene scene = new Scene(root, 800, 600);
-            stage.setTitle("Donate Page");
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            System.err.println("Error opening the donate page: " + e.getMessage());
-            e.printStackTrace();
-        }
+        if(app==null) return;
+        app.getHostServices().showDocument("https://ko-fi.com/porfanid");
     }
+
+
 
 
 

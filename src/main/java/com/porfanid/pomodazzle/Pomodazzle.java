@@ -20,6 +20,8 @@ public class Pomodazzle extends Application {
 
         controller = fxmlLoader.getController();
 
+        controller.setApp(this);
+
         // Create a Scene with the root node from FXML
         Scene scene = new Scene(root, 400, 600);
 
