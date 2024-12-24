@@ -58,7 +58,8 @@ jobs:
             --win-dir-chooser `
             --win-menu `
             --win-shortcut `
-          Get-ChildItem ".\\package"
+          # Getting the children of the package directory 
+          Get-ChildItem ".\package"
 #            --win-icon ".\\openjfx\\openjfx-23.0.1\\bin\\your-icon.ico"  # Optional: Provide your icon path
 
 
