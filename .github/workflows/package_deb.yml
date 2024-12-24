@@ -28,21 +28,32 @@ jobs:
           sudo apt-get install -y openjfx
           mvn clean package
 
+      # Step 4: Create custom runtime image using jlink
+      - name: Create custom runtime image with jlink
+        run: |
+          # Define paths
+          JDK_PATH=$(dirname $(dirname $(which java)))
+          JAVA_FX_PATH=/usr/share/openjfx/lib
+
+          # Create a custom runtime image using jlink
+          jlink --module-path $JDK_PATH/jmods:$JAVA_FX_PATH \
+                --add-modules javafx.controls,javafx.fxml,java.base,java.web \
+                --output ./custom-jre
+
       # Step 4: Use jpackage to create a .deb package
-      - name: Create .deb package
+      - name: Package the app with jpackage
         run: |
           jpackage \
             --input target \
             --name Pomodazzle \
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar \
             --main-class com.porfanid.pomodazzle.Pomodazzle \
-            --module-path /usr/share/openjfx/lib \
-            --add-modules javafx.controls,javafx.fxml,javafx.web \
+            --module-path ./custom-jre/lib:$HOME/javafx-sdk/javafx-sdk-21/lib \
+            --add-modules javafx.controls,javafx.fxml,java.base \
+            --runtime-image ./custom-jre \
             --type deb \
             --dest ./package \
-            --icon icons/pomodazzle-icon.png \
-            --linux-shortcut \
-            --linux-menu-group "Utility"
+            --icon icons/pomodazzle-icon.png
 
       # Step 5: Upload the package as an artifact
       - name: Find and Upload .deb File
