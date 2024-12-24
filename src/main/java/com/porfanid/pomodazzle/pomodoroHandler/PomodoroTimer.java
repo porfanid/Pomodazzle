@@ -1,4 +1,6 @@
 package com.porfanid.pomodazzle.pomodoroHandler;
+import com.porfanid.pomodazzle.sound.SoundApi;
+import com.porfanid.pomodazzle.sound.SoundFactory;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -7,29 +9,31 @@ import java.util.TimerTask;
 public class PomodoroTimer implements PomodoroInt {
 
 
-    private int workTime;
-    private int breakTime;
-    private int longBreakTime;
+    private final int workTime;
+    private final int breakTime;
+    private final int longBreakTime;
     private int currentTime; // Current time in seconds for countdown
     private int pomodorosCompleted;
     private final Timer timer;
     private TimerTask currentTask;
     private TimerState state;
     private final PomodoroTimerListener listener;
+    private SoundApi soundPlayer;
 
     private int isBreakTime; // New flag to track if we are in a break phase
 
     public PomodoroTimer(PomodoroTimerListener listener, PomodoroDefaultValues defaultValues) {
 
-        this.workTime = defaultValues.getDefaultWorkTime();
-        this.breakTime = defaultValues.getDefaultBreakTime();
-        this.longBreakTime = defaultValues.getDefaultLongBreakTime();
+        this.workTime = defaultValues.getDefaultWorkTime()*60;
+        this.breakTime = defaultValues.getDefaultBreakTime()*60;
+        this.longBreakTime = defaultValues.getDefaultLongBreakTime()*60;
         this.currentTime = workTime;
         this.pomodorosCompleted = 0;
         this.state = TimerState.STOPPED;
         this.timer = new Timer();
         this.listener = listener;
         this.isBreakTime = 0; // Initially, it's not break time
+        this.soundPlayer = SoundFactory.createSound();
     }
 
     // Start the Pomodoro timer
@@ -67,6 +71,9 @@ public class PomodoroTimer implements PomodoroInt {
     private void updateTime() {
         if (currentTime > 0) {
             currentTime--;
+            if(currentTime<4){
+                soundPlayer.play();
+            }
             notifyTimeUpdate();
         } else {
             onTimeUp();
@@ -132,32 +139,11 @@ public class PomodoroTimer implements PomodoroInt {
         listener.onStateChange(state);
     }
 
-    // Getters and setters for work time, break time, and long break time
-    public void setWorkTime(int minutes) {
-        this.workTime = minutes * 60;
-    }
 
-    public void setBreakTime(int minutes) {
-        this.breakTime = minutes * 60;
-    }
-
-    public void setLongBreakTime(int minutes) {
-        this.longBreakTime = minutes * 60;
-    }
-
-    // Get current timer state
-    public TimerState getState() {
-        return state;
-    }
 
     // Get the current remaining time in seconds
     public int getRemainingTime() {
         return currentTime;
-    }
-
-    // Get the number of Pomodoros completed
-    public int getPomodorosCompleted() {
-        return pomodorosCompleted;
     }
 
     // New method to check if currently on a break
@@ -168,10 +154,6 @@ public class PomodoroTimer implements PomodoroInt {
     // New method to check if currently working
     public boolean isWorking() {
         return isBreakTime==0;
-    }
-
-    public boolean isLongBreak() {
-        return isBreakTime==2;
     }
 
     public double getProgress() {
@@ -195,5 +177,19 @@ public class PomodoroTimer implements PomodoroInt {
             timer.cancel();
             timer.purge();
         }
+    }
+
+    @Override
+    public void setSound(String sound) {
+        if(soundPlayer==null){
+            this.soundPlayer = SoundFactory.createSound();
+        }
+        this.soundPlayer.setSound(sound);
+        this.soundPlayer.setVolume(1.0);
+    }
+
+    @Override
+    public void deleteSound() {
+        this.soundPlayer = null;
     }
 }

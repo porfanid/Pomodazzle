@@ -126,3 +126,8 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Contact
 
 For any inquiries, please contact the developer at [pavlos@orfanidis.net.gr](mailto:pavlos@orfanidis.net.gr) or create an issue at the issues tab.
+
+## Attributions
+
+The following sound is used in this project:
+- <a href="https://freesound.org/people/221098HariPotter/sounds/655558/">Alarm - single beep 221098_AshtiHari_SD100_Term4.wav</a> by <a href="https://freesound.org/people/221098HariPotter/">221098HariPotter</a> | License: <a href="https://creativecommons.org/licenses/by/4.0/">Attribution 4.0</a>

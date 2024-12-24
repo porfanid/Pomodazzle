@@ -64,7 +64,7 @@ public class PomodoroDefaultValues implements AutoCloseable, Serializable {
 
         try (FileInputStream inputStream = new FileInputStream(SETTINGS_FILE)) {
             properties.load(inputStream);
-            defaultWorkTime = Integer.parseInt(properties.getProperty("workTime", "10"));
+            defaultWorkTime = Integer.parseInt(properties.getProperty("workTime", "25"));
             defaultBreakTime = Integer.parseInt(properties.getProperty("breakTime", "5"));
             defaultLongBreakTime = Integer.parseInt(properties.getProperty("longBreakTime", "15"));
         } catch (IOException e) {
@@ -77,8 +77,15 @@ public class PomodoroDefaultValues implements AutoCloseable, Serializable {
         String userHome = System.getProperty("user.home");
         // Create a directory for the app if it doesn't exist
         File appDir = new File(userHome, ".pomodoro");
+        boolean fileCreated;
         if (!appDir.exists()) {
-            appDir.mkdir();
+            fileCreated = appDir.mkdir();
+        }else{
+            fileCreated = true;
+        }
+
+        if(!fileCreated){
+            System.err.println("Error creating directory for settings file");
         }
         // Return the settings file path
         return new File(appDir, "pomodoro_settings.properties").getAbsolutePath();

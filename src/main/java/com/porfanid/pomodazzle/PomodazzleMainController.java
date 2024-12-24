@@ -9,19 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.awt.*;
+
 import java.io.Closeable;
 import java.io.IOException;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class PomodazzleMainController implements Closeable {
 
@@ -32,18 +24,12 @@ public class PomodazzleMainController implements Closeable {
     @FXML
     private Button startButton;
     @FXML
-    private Button resetButton;
-    @FXML
-    private Button donateButton;
-    @FXML
     private Button settingsButton;
 
     private Application app;
 
-    private PomodoroDefaultValues defaultValues;
 
-
-    private PomodoroInt pomodoroTimer;
+    private  PomodoroInt pomodoroTimer;
 
     public void initialize() {
 
@@ -52,25 +38,19 @@ public class PomodazzleMainController implements Closeable {
             @Override
             public void onTimeUpdate(int minutesLeft, int secondsLeft) {
                 // Update the UI based on time
-                Platform.runLater(() -> {
-                    updateTimerLabel();
-                });
+                Platform.runLater(() -> updateTimerLabel());
             }
 
             @Override
             public void onStateChange(TimerState state) {
                 // Update the UI based on state changes (Work, Break, Paused)
-                Platform.runLater(() -> {
-                    updateUI(state);
-                });
+                Platform.runLater(() -> updateUI(state));
             }
         };
 
-        defaultValues = new PomodoroDefaultValues();
-
         // Initialize PomodoroTimer
         pomodoroTimer = PomodoroFactory.createPomodoro(listener);
-
+        pomodoroTimer.setSound("/com/porfanid/pomodazzle/sounds/single_beep.wav");
         // Initial UI update
         updateTimerLabel();
         updateStatusLabel(TimerState.STOPPED);

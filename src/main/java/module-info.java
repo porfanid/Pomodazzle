@@ -11,6 +11,7 @@ module com.porfanid.pomodazzle {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires javafx.media;
 
     opens com.porfanid.pomodazzle to javafx.fxml;
     exports com.porfanid.pomodazzle;
