@@ -36,6 +36,10 @@ jobs:
       # Step 4: Use jpackage to create MSI installer
       - name: Create MSI installer using jpackage
         run: |
+          
+          Get-ChildItem "C:ProgramFiles\Java\" | Where-Object { $_.Name -like "*openjfx*" }
+          
+          
           # Correctly set the PATH environment variable with the correct JavaFX bin path
           $env:PATH="$env:PATH;$env:ProgramFiles\\Java\\openjfx-23.0.1\\bin"
 
