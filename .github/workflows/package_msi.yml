@@ -27,14 +27,11 @@ jobs:
           Invoke-WebRequest -Uri https://download2.gluonhq.com/openjfx/23.0.1/openjfx-23.0.1_windows-x64_bin-sdk.zip -OutFile openjfx.zip
           
           # Create a local directory to extract JavaFX
-          $javaFXDir = "$env:GITHUB_WORKSPACE\\openjfx"
+          $javaFXDir = ".\\openjfx"
           New-Item -ItemType Directory -Force -Path $javaFXDir
           
           # Extract JavaFX to the local directory
           Expand-Archive openjfx.zip -DestinationPath $javaFXDir
-
-          # Set JavaFX path as environment variable
-          echo "JAVA_FX_HOME=$javaFXDir\\openjfx-23.0.1" >> $env:GITHUB_ENV
 
       # Step 3: Build your app with Maven or Gradle
       # For example, use Maven if your project uses it
@@ -44,21 +41,23 @@ jobs:
       # Step 4: Use jpackage to create MSI installer
       - name: Create MSI installer using jpackage
         run: |
-          # Correctly set the PATH environment variable with the correct JavaFX bin path
-          $env:PATH="$env:PATH;$env:GITHUB_WORKSPACE\\openjfx\\openjfx-23.0.1\\bin"
+          # Set the local JavaFX bin and lib paths
+          $javaFXBin = ".\\openjfx\\openjfx-23.0.1\\bin"
+          $javaFXLib = ".\\openjfx\\openjfx-23.0.1\\lib"
 
           # Use jpackage to create the installer
           jpackage --input target `
             --name Pomodazzle `
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
             --main-class com.porfanid.pomodazzle.Pomodazzle `
-            --module-path $env:GITHUB_WORKSPACE\\openjfx\\openjfx-23.0.1\\lib `
+            --module-path ".\\openjfx\\openjfx-23.0.1\\lib" `
             --add-modules javafx.controls,javafx.fxml `
             --type msi `
             --dest ./package/Pomodazzle `
             --win-dir-chooser `
             --win-menu `
-            --win-shortcut
+            --win-shortcut `
+            --win-icon ".\\openjfx\\openjfx-23.0.1\\bin\\your-icon.ico"  # Optional: Provide your icon path
 
       # Step 5: Upload the MSI file as an artifact or release
       - name: Upload MSI to GitHub release
