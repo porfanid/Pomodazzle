@@ -37,7 +37,7 @@ jobs:
       - name: Create MSI installer using jpackage
         run: |
           
-          Get-ChildItem "C:ProgramFiles\Java\" | Where-Object { $_.Name -like "*openjfx*" }
+          Get-ChildItem "C:ProgramFiles\" | Where-Object { $_.Name -like "*openjfx*" }
           
           
           # Correctly set the PATH environment variable with the correct JavaFX bin path
