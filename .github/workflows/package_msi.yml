@@ -32,6 +32,7 @@ jobs:
           
           # Extract JavaFX to the local directory
           Expand-Archive openjfx.zip -DestinationPath $javaFXDir
+          Get-ChildItem ".\openjfx"
 
       # Step 3: Build your app with Maven or Gradle
       # For example, use Maven if your project uses it
@@ -51,7 +52,7 @@ jobs:
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
             --main-class com.porfanid.pomodazzle.Pomodazzle `
             --module-path ".\\openjfx\\openjfx-23.0.1\\lib" `
-            --add-modules javafx.controls,javafx.fxml `
+            --add-modules javafx.controls,javafx.fxml,javafx.web `
             --type msi `
             --dest ./package/Pomodazzle `
             --win-dir-chooser `
