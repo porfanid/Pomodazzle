@@ -20,13 +20,21 @@ jobs:
           distribution: 'microsoft'
           java-version: '21'
 
-      # Step 2: Install JavaFX
+      # Step 2: Install JavaFX 21 locally in a specified directory
       - name: Install JavaFX 21
         run: |
+          # Download JavaFX SDK
           Invoke-WebRequest -Uri https://download2.gluonhq.com/openjfx/23.0.1/openjfx-23.0.1_windows-x64_bin-sdk.zip -OutFile openjfx.zip
-          Expand-Archive openjfx.zip -DestinationPath $env:ProgramFiles\Java
+          
+          # Create a local directory to extract JavaFX
+          $javaFXDir = "$env:GITHUB_WORKSPACE\\openjfx"
+          New-Item -ItemType Directory -Force -Path $javaFXDir
+          
+          # Extract JavaFX to the local directory
+          Expand-Archive openjfx.zip -DestinationPath $javaFXDir
+
           # Set JavaFX path as environment variable
-          echo "JAVA_FX_HOME=$env:ProgramFiles\Java\openjfx-23.0.1" >> $env:GITHUB_ENV
+          echo "JAVA_FX_HOME=$javaFXDir\\openjfx-23.0.1" >> $env:GITHUB_ENV
 
       # Step 3: Build your app with Maven or Gradle
       # For example, use Maven if your project uses it
@@ -36,26 +44,21 @@ jobs:
       # Step 4: Use jpackage to create MSI installer
       - name: Create MSI installer using jpackage
         run: |
-          
-          Get-ChildItem "C:ProgramFiles\" | Where-Object { $_.Name -like "*openjfx*" }
-          
-          
           # Correctly set the PATH environment variable with the correct JavaFX bin path
-          $env:PATH="$env:PATH;$env:ProgramFiles\\Java\\openjfx-23.0.1\\bin"
+          $env:PATH="$env:PATH;$env:GITHUB_WORKSPACE\\openjfx\\openjfx-23.0.1\\bin"
 
           # Use jpackage to create the installer
           jpackage --input target `
             --name Pomodazzle `
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
             --main-class com.porfanid.pomodazzle.Pomodazzle `
-            --module-path C:ProgramFiles\\Java\\openjfx-23.0.1\\lib `
+            --module-path $env:GITHUB_WORKSPACE\\openjfx\\openjfx-23.0.1\\lib `
             --add-modules javafx.controls,javafx.fxml `
             --type msi `
             --dest ./package/Pomodazzle `
             --win-dir-chooser `
             --win-menu `
             --win-shortcut
-      
 
       # Step 5: Upload the MSI file as an artifact or release
       - name: Upload MSI to GitHub release
