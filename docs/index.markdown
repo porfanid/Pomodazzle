@@ -5,8 +5,6 @@
 layout: home
 ---
 
-# Pomodazzle
-
 Welcome to the Pomodazzle documentation! Here you will find information on how to install, configure, and use the Pomodazzle Pomodoro timer application.
 
 ## Table of Contents
@@ -19,3 +17,4 @@ The user guide provides detailed instructions on how to install, configure, and 
 
 ## Developer Guide
 
+The developer guide provides information on how to set up your development environment, build the application, and contribute to the project. It includes details on prerequisites, setting up the development environment, building the application, contributing to the project, and more. You can find the developer guide [here](/developer-guide).
