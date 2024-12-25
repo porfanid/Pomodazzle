@@ -1,4 +1,9 @@
-# User Guide
+---
+layout: page
+title: Install Instructions
+permalink: /install-instructions/
+---
+# Install Instructions
 
 ## Installation
 

@@ -13,7 +13,7 @@ Welcome to the Pomodazzle documentation! Here you will find information on how t
 
 ## User Guide
 
-The user guide provides detailed instructions on how to install, configure, and use the Pomodazzle application. It covers topics such as installation, usage, settings, and troubleshooting. You can find the user guide [here](/user-guide).
+The user guide provides detailed instructions on how to install, configure, and use the Pomodazzle application. It covers topics such as installation, usage, settings, and troubleshooting. You can find the user guide [here](/install-instructions).
 
 ## Developer Guide
 
