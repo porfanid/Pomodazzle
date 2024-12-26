@@ -9,6 +9,12 @@ public class Sound implements SoundApi {
 
     @Override
     public void play() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+        }
+        assert mediaPlayer != null;
+        mediaPlayer = new MediaPlayer(new Media(mediaPlayer.getMedia().getSource()));
         mediaPlayer.play();
         System.out.println("Playing sound");
     }
