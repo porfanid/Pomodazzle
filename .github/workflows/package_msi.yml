@@ -70,7 +70,8 @@ jobs:
             --main-class com.porfanid.pomodazzle.Pomodazzle `
             --runtime-image $jreDir `
             --type exe `
-            --dest ./package/
+            --dest ./package/ `
+            --verbose
           
           # List contents of the package directory
           Get-ChildItem ".\package"
