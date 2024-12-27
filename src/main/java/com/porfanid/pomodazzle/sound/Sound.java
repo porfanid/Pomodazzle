@@ -6,23 +6,23 @@ import javafx.scene.media.Media;
 public class Sound implements SoundApi {
 
     private MediaPlayer mediaPlayer;
+    private Media media;
 
     @Override
     public void play() {
+        // disposing the old media player
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.dispose();
+            mediaPlayer=null;
         }
-        assert mediaPlayer != null;
-        mediaPlayer = new MediaPlayer(new Media(mediaPlayer.getMedia().getSource()));
+        mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
-        System.out.println("Playing sound");
     }
 
     @Override
     public void setSound(String sound){
-        Media media = new Media(getClass().getResource(sound).toExternalForm());
-        mediaPlayer = new MediaPlayer(media);
+        media = new Media(getClass().getResource(sound).toExternalForm());
     }
 
 

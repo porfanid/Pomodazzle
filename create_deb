@@ -13,5 +13,3 @@ jpackage \
     --icon icons/pomodazzle-icon.png \
     --linux-shortcut \
     --linux-menu-group "Utility"
-
-./mvnw clean

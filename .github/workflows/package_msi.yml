@@ -44,7 +44,7 @@ jobs:
 
           # Create a custom runtime image
           & "$jdkBin\jlink" --module-path "$env:JAVA_HOME\jmods;$javaFXLib" `
-            --add-modules java.base,java.desktop,javafx.controls,javafx.fxml,javafx.web,javafx.media `
+            --add-modules java.base,java.desktop,javafx.controls,javafx.fxml,javafx.web,javafx.media,javafx.swing `
             --output $jlinkOutputDir `
             --bind-services
 
