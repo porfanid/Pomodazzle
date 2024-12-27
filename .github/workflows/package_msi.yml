@@ -65,16 +65,12 @@ jobs:
           # Use jpackage to create the installer
           & "$env:JAVA_HOME\bin\jpackage" `
             --input target `
-            --name Pomodazzle `
-            --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
-            --main-class com.porfanid.pomodazzle.Pomodazzle `
-            --module-path "$javaFXLib;$jreDir\lib" `
-            --runtime-image $jreDir `
-            --type exe `
-            --dest ./package/ `
-            --win-dir-chooser `
-            --win-menu `
-            --win-shortcut
+	    --name Pomodazzle `
+	    --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
+	    --main-class com.porfanid.pomodazzle.Pomodazzle `
+	    --runtime-image $jreDir `
+	    --type exe `
+	    --dest ./package/
           
           # List contents of the package directory
           Get-ChildItem ".\package"
