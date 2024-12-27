@@ -69,7 +69,6 @@ jobs:
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
             --main-class com.porfanid.pomodazzle.Pomodazzle `
             --module-path "$javaFXLib;$jreDir\lib" `
-            --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.media `
             --runtime-image $jreDir `
             --type msi `
             --dest ./package/ `
