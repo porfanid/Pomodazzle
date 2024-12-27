@@ -70,7 +70,7 @@ jobs:
             --main-class com.porfanid.pomodazzle.Pomodazzle `
             --module-path "$javaFXLib;$jreDir\lib" `
             --runtime-image $jreDir `
-            --type msi `
+            --type exe `
             --dest ./package/ `
             --win-dir-chooser `
             --win-menu `
@@ -84,7 +84,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pomodazzle-package
-          path: ./package/Pomodazzle*.msi
+          path: ./package/Pomodazzle*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
