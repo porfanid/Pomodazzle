@@ -34,40 +34,58 @@ jobs:
           Expand-Archive openjfx.zip -DestinationPath $javaFXDir
           Get-ChildItem ".\openjfx\javafx-sdk-23.0.1"
 
-      # Step 3: Build your app with Maven or Gradle
-      # For example, use Maven if your project uses it
+      # Step 3: Create custom JRE using jlink
+      - name: Create custom JRE using jlink
+        run: |
+          # Define directories
+          $jdkBin = "$env:JAVA_HOME\bin"
+          $javaFXLib = ".\openjfx\javafx-sdk-23.0.1\lib"
+          $jlinkOutputDir = ".\jre"
+
+          # Create a custom runtime image
+          & "$jdkBin\jlink" --module-path "$env:JAVA_HOME\jmods;$javaFXLib" `
+            --add-modules java.base,java.desktop,javafx.controls,javafx.fxml,javafx.web,javafx.media `
+            --output $jlinkOutputDir `
+            --bind-services
+
+          # Verify the JRE was created
+          Get-ChildItem $jlinkOutputDir
+
+      # Step 4: Build your app with Maven
       - name: Build with Maven
         run: mvn clean package
 
-      # Step 4: Use jpackage to create MSI installer
+      # Step 5: Use jpackage to create MSI installer with the custom JRE
       - name: Create MSI installer using jpackage
         run: |
-          # Set the local JavaFX bin and lib paths
-          $javaFXBin = ".\\openjfx\\openjfx-23.0.1\\bin"
-          $javaFXLib = ".\\openjfx\\openjfx-23.0.1\\lib"
+          # Set paths for the custom JRE and JavaFX
+          $jreDir = ".\jre"
+          $javaFXLib = ".\openjfx\javafx-sdk-23.0.1\lib"
 
           # Use jpackage to create the installer
-          jpackage --input target `
+          & "$env:JAVA_HOME\bin\jpackage" `
+            --input target `
             --name Pomodazzle `
             --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
             --main-class com.porfanid.pomodazzle.Pomodazzle `
-            --module-path ".\\openjfx\\javafx-sdk-23.0.1\\lib" `
+            --module-path "$javaFXLib;$jreDir\lib" `
             --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.media `
+            --runtime-image $jreDir `
             --type msi `
             --dest ./package/ `
             --win-dir-chooser `
             --win-menu `
-            --win-shortcut `
-          # Getting the children of the package directory 
+            --win-shortcut
+          
+          # List contents of the package directory
           Get-ChildItem ".\package"
-#            --win-icon ".\\openjfx\\openjfx-23.0.1\\bin\\your-icon.ico"  # Optional: Provide your icon path
 
-
-      # Step 5: Upload the MSI file as an artifact or release
-      - name: Upload .deb Artifact
+      # Step 6: Upload the MSI file as an artifact or release
+      - name: Upload .msi Artifact
         uses: actions/upload-artifact@v3
         with:
           name: pomodazzle-package
           path: ./package/Pomodazzle*.msi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
