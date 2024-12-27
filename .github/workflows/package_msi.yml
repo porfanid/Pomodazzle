@@ -55,31 +55,49 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      # Step 5: Use jpackage to create MSI installer with the custom JRE
-      - name: Create MSI installer using jpackage
+      # Step 5: Install Launch4j
+      - name: Install Launch4j
         run: |
-          # Set paths for the custom JRE and JavaFX
-          $jreDir = ".\jre"
-          $javaFXLib = ".\openjfx\javafx-sdk-23.0.1\lib"
+          # Install Launch4j using Chocolatey
+          choco install launch4j
 
-          # Use jpackage to create the installer
-          & "$env:JAVA_HOME\bin\jpackage" `
-            --input target `
-            --name Pomodazzle `
-            --main-jar Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar `
-            --main-class com.porfanid.pomodazzle.Pomodazzle `
-            --runtime-image $jreDir `
-            --type exe `
-            --dest ./package/ `
-            --verbose
+      # Step 6: Use Launch4j to wrap the JAR with the custom JRE
+      - name: Create Windows .exe using Launch4j
+        run: |
+          # Set paths for the custom JRE, JAR file, and output directory
+          $launch4jExe = "C:\ProgramData\chocolatey\bin\launch4j.exe"
+          $jarFile = "target\Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar"
+          $jreDir = ".\jre"
+          $outputExe = ".\package\Pomodazzle.exe"
           
-          # List contents of the package directory
+          # Create the Launch4j configuration XML
+          $launch4jConfig = @"
+          <launch4jconfig>
+            <outputFile>$outputExe</outputFile>
+            <jar>$jarFile</jar>
+            <jre>
+              <path>$jreDir</path>
+            </jre>
+            <minJvmVersion>11</minJvmVersion>
+            <maxJvmVersion>21</maxJvmVersion>
+            <dontUseLaunch4jJre>false</dontUseLaunch4jJre>
+          </launch4jconfig>
+          "@
+
+          # Write the configuration to a file
+          $configFile = ".\launch4j_config.xml"
+          $launch4jConfig | Out-File -FilePath $configFile
+
+          # Run Launch4j with the configuration
+          & $launch4jExe $configFile
+
+          # Verify the .exe file is generated
           Get-ChildItem ".\package"
 
-      # Step 6: Test the Generated .exe File
+      # Step 7: Test the Generated .exe File
       - name: Test the Generated .exe File
         run: |
-          $exePath = ".\package\Pomodazzle-1.0.exe"
+          $exePath = ".\package\Pomodazzle.exe"
           
           # Ensure the file exists
           if (-Not (Test-Path $exePath)) {
@@ -92,13 +110,11 @@ jobs:
           Write-Host "The .exe file executed successfully."
         shell: pwsh
 
-
-      # Step 6: Upload the MSI file as an artifact or release
-      - name: Upload .msi Artifact
+      # Step 8: Upload the .exe File as an Artifact
+      - name: Upload .exe Artifact
         uses: actions/upload-artifact@v3
         with:
           name: pomodazzle-package
-          path: ./package/Pomodazzle*.exe
+          path: ./package/Pomodazzle.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
