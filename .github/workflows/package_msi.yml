@@ -78,7 +78,7 @@ jobs:
       # Step 6: Test the Generated .exe File
       - name: Test the Generated .exe File
         run: |
-          $exePath = ".\package\Pomodazzle.exe"
+          $exePath = ".\package\Pomodazzle-1.0.exe"
           
           # Ensure the file exists
           if (-Not (Test-Path $exePath)) {
