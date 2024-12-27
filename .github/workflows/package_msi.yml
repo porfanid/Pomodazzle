@@ -75,6 +75,23 @@ jobs:
           # List contents of the package directory
           Get-ChildItem ".\package"
 
+      # Step 6: Test the Generated .exe File
+      - name: Test the Generated .exe File
+        run: |
+          $exePath = ".\package\Pomodazzle.exe"
+          
+          # Ensure the file exists
+          if (-Not (Test-Path $exePath)) {
+              throw "The generated .exe file does not exist at $exePath."
+          }
+          
+          # If no arguments are supported, just run it
+          & $exePath | Out-Null
+          
+          Write-Host "The .exe file executed successfully."
+        shell: pwsh
+
+
       # Step 6: Upload the MSI file as an artifact or release
       - name: Upload .msi Artifact
         uses: actions/upload-artifact@v3
