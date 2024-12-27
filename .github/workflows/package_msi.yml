@@ -62,14 +62,20 @@ jobs:
           choco install launch4j
 
       # Step 6: Use Launch4j to wrap the JAR with the custom JRE
+      # Step 6: Use Launch4j to wrap the JAR with the custom JRE
       - name: Create Windows .exe using Launch4j
         run: |
-          # Set paths for the custom JRE, JAR file, and output directory
-          $launch4jExe = "C:\ProgramData\chocolatey\bin\launch4j.exe"
+          # Find the path to Launch4j executable using Get-Command (equivalent of 'which')
+          $launch4jExe = (Get-Command launch4j.exe).Source
+          if (-Not $launch4jExe) {
+              Write-Error "Launch4j executable not found in PATH."
+              exit 1
+          }
+
           $jarFile = "target\Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar"
           $jreDir = ".\jre"
           $outputExe = ".\package\Pomodazzle.exe"
-          
+
           # Create the Launch4j configuration XML
           $launch4jConfig = @"
           <launch4jconfig>
@@ -93,6 +99,7 @@ jobs:
 
           # Verify the .exe file is generated
           Get-ChildItem ".\package"
+      
 
       # Step 7: Test the Generated .exe File
       - name: Test the Generated .exe File
