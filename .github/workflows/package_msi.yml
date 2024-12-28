@@ -67,33 +67,8 @@ jobs:
         shell: pwsh
         run: |
           # Locate Launch4j executable
-          $potentialPaths = @(
-              "C:\ProgramData\chocolatey\bin\launch4j.exe",
-              "C:\Program Files\Launch4j\launch4j.exe",
-              "C:\Program Files (x86)\Launch4j\launch4j.exe"
-          )
-
-          # Check for executable in known locations
-          $launch4jExe = $null
-          foreach ($path in $potentialPaths) {
-              if (Test-Path $path) {
-                  $launch4jExe = $path
-                  break
-              }
-          }
-
-          # Fallback to searching the PATH
-          if (-Not $launch4jExe) {
-              $launch4jExe = (Get-Command launch4j.exe -ErrorAction SilentlyContinue)?.Source
-          }
           
-          Write-Host "Launch4j executable found at: $launch4jExe"
-
-          # Handle missing Launch4j
-          if (-Not $launch4jExe) {
-              Write-Error "Launch4j executable not found. Please check installation."
-              exit 1
-          }
+          $launch4jExe = "C:\Program Files (x86)\Launch4j\launch4j.exe"
 
           # Define paths for input and output
           $jarFile = "target\Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar"
@@ -130,12 +105,15 @@ jobs:
 
           $configFile = ".\launch4j_config.xml"
           $launch4jConfig | Set-Content -Path $configFile
+          
+          Write-Host "Launch4j configuration file content:"
+          Get-Content $configFile | Write-Host
 
           # Run Launch4j
           & $launch4jExe $configFile --verbose
 
           # Verify EXE creation
-          Get-ChildItem -Path "./package" -Recurse | Format-List
+          Get-ChildItem -Path "." -Recurse
           
 
       # Step 8: Upload the .exe File as an Artifact
