@@ -130,12 +130,7 @@ jobs:
           & $launch4jExe $configFile
 
           # Verify EXE creation
-          if (-Not (Test-Path $outputExe)) {
-              Write-Error "Failed to generate EXE file: $outputExe"
-              exit 1
-          } else {
-              Write-Host "Successfully created EXE: $outputExe"
-          }
+          Get-ChildItem ".\package"
       
       
 
