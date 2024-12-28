@@ -131,7 +131,7 @@ jobs:
           $launch4jConfig | Set-Content -Path $configFile
 
           # Run Launch4j
-          & $launch4jExe $configFile
+          & $launch4jExe $configFile --verbose
 
           # Verify EXE creation
           Get-ChildItem -Path "./package" -Recurse | Format-List
