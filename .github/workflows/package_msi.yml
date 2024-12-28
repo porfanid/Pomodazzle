@@ -122,6 +122,7 @@ jobs:
             <minJvmVersion>11</minJvmVersion>
             <maxJvmVersion>21</maxJvmVersion>
             <dontUseLaunch4jJre>false</dontUseLaunch4jJre>
+            <logFile>./launch4j.log</logFile>
           </launch4jConfig>
           "@
           
@@ -135,6 +136,16 @@ jobs:
 
           # Verify EXE creation
           Get-ChildItem -Path "./package" -Recurse | Format-List
+          
+
+      # Step 8: Upload the .exe File as an Artifact
+      - name: Upload logfile Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: launch4j.log
+          path: ./launch4j.log
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       
 
