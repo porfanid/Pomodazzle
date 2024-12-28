@@ -132,8 +132,6 @@ jobs:
           & $launch4jExe $configFile
 
           # Verify EXE creation
-          Get-ChildItem "."
-          Write-Host "The package dir:"
           Get-ChildItem "./package"
       
       
