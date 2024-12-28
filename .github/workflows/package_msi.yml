@@ -64,21 +64,54 @@ jobs:
       # Step 6: Use Launch4j to wrap the JAR with the custom JRE
       # Step 6: Use Launch4j to wrap the JAR with the custom JRE
       - name: Create Windows .exe using Launch4j
+        shell: pwsh
         run: |
-          # Find the path to Launch4j executable using Get-Command (equivalent of 'which')
-          $launch4jExe = (Get-Command launch4j.exe).Source
+          # Locate Launch4j executable
+          $potentialPaths = @(
+              "C:\ProgramData\chocolatey\bin\launch4j.exe",
+              "C:\Program Files\Launch4j\launch4j.exe",
+              "C:\Program Files (x86)\Launch4j\launch4j.exe"
+          )
+
+          # Check for executable in known locations
+          $launch4jExe = $null
+          foreach ($path in $potentialPaths) {
+              if (Test-Path $path) {
+                  $launch4jExe = $path
+                  break
+              }
+          }
+
+          # Fallback to searching the PATH
           if (-Not $launch4jExe) {
-              Write-Error "Launch4j executable not found in PATH."
+              $launch4jExe = (Get-Command launch4j.exe -ErrorAction SilentlyContinue)?.Source
+          }
+
+          # Handle missing Launch4j
+          if (-Not $launch4jExe) {
+              Write-Error "Launch4j executable not found. Please check installation."
               exit 1
           }
 
+          # Define paths for input and output
           $jarFile = "target\Pomodazzle-1.0-SNAPSHOT-jar-with-dependencies.jar"
           $jreDir = ".\jre"
           $outputExe = ".\package\Pomodazzle.exe"
 
-          # Create the Launch4j configuration XML
+          # Verify input files
+          if (-Not (Test-Path $jarFile)) {
+              Write-Error "JAR file not found: $jarFile"
+              exit 1
+          }
+
+          if (-Not (Test-Path $jreDir)) {
+              Write-Error "Embedded JRE directory not found: $jreDir"
+              exit 1
+          }
+
+          # Create Launch4j configuration file
           $launch4jConfig = @"
-          <launch4jconfig>
+          <launch4jConfig>
             <outputFile>$outputExe</outputFile>
             <jar>$jarFile</jar>
             <jre>
@@ -87,18 +120,23 @@ jobs:
             <minJvmVersion>11</minJvmVersion>
             <maxJvmVersion>21</maxJvmVersion>
             <dontUseLaunch4jJre>false</dontUseLaunch4jJre>
-          </launch4jconfig>
+          </launch4jConfig>
           "@
 
-          # Write the configuration to a file
           $configFile = ".\launch4j_config.xml"
-          $launch4jConfig | Out-File -FilePath $configFile
+          $launch4jConfig | Set-Content -Path $configFile
 
-          # Run Launch4j with the configuration
+          # Run Launch4j
           & $launch4jExe $configFile
 
-          # Verify the .exe file is generated
-          Get-ChildItem ".\package"
+          # Verify EXE creation
+          if (-Not (Test-Path $outputExe)) {
+              Write-Error "Failed to generate EXE file: $outputExe"
+              exit 1
+          } else {
+              Write-Host "Successfully created EXE: $outputExe"
+          }
+      
       
 
       # Step 7: Test the Generated .exe File
