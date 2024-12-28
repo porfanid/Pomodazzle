@@ -122,6 +122,8 @@ jobs:
             <dontUseLaunch4jJre>false</dontUseLaunch4jJre>
           </launch4jConfig>
           "@
+          
+          New-Item -ItemType Directory -Path .\package
 
           $configFile = ".\launch4j_config.xml"
           $launch4jConfig | Set-Content -Path $configFile
@@ -131,6 +133,7 @@ jobs:
 
           # Verify EXE creation
           Get-ChildItem "."
+          Get-ChildItem "./package"
       
       
 
