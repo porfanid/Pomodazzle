@@ -86,6 +86,8 @@ jobs:
           if (-Not $launch4jExe) {
               $launch4jExe = (Get-Command launch4j.exe -ErrorAction SilentlyContinue)?.Source
           }
+          
+          Write-Host "Launch4j executable found at: $launch4jExe"
 
           # Handle missing Launch4j
           if (-Not $launch4jExe) {
