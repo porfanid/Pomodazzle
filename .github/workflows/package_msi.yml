@@ -132,7 +132,7 @@ jobs:
           & $launch4jExe $configFile
 
           # Verify EXE creation
-          Get-ChildItem "./package/"
+          Get-ChildItem -Path "." -Recurse | Format-List
       
       
 
