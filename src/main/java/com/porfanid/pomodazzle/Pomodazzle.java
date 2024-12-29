@@ -10,10 +10,12 @@ import java.io.IOException;
 
 public class Pomodazzle extends Application {
 
+
     private PomodazzleMainController controller;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        System.out.println("JavaFX Version: " + System.getProperty("javafx.version"));
         // Load your FXML file
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/porfanid/pomodazzle/main.fxml"));
         Parent root = fxmlLoader.load();

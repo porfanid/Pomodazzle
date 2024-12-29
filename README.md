@@ -1,5 +1,10 @@
 # Pomodazzle
 
+⚠️ **Deprecation Notice**  
+This repository is no longer actively maintained. Future updates and new features for Pomodazzle will be available on [Pomodazzle-Electron](https://github.com/porfanid/Pomodazzle-electron). Please visit the new repository for the latest version of the app.
+
+---
+
 Pomodazzle is a JavaFX-based Pomodoro timer application designed to help you manage your time effectively using the Pomodoro Technique. The application includes features such as starting, pausing, and resetting the timer, as well as a donation button to support the developer.
 
 ## Features
